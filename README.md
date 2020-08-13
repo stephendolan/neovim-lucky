@@ -18,3 +18,7 @@ Plug 'stephendolan/neovim-lucky', { 'for': 'crystal' }
 | `:Eop`     | Open the relevant Lucky operation from a page, action, or model file. |
 | `:Eaction` | Open the relevant Lucky action from a page file.                      |
 | `:Epage`   | Open the relevant Lucky action from an action file.                   |
+
+## In action
+
+[![asciicast](https://asciinema.org/a/wTi4oXZyZDttOj6PHVWNfk8P9.svg)](https://asciinema.org/a/wTi4oXZyZDttOj6PHVWNfk8P9)
