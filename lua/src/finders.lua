@@ -44,25 +44,14 @@ local function singular(text)
   return string.sub(text, 1, -2)
 end
 
--- Determine whether or not a given path is a Lucky page file
-local function is_page_file(full_path)
-  local pattern = 'src/pages/.+'
+-- Determine whether a given path sits in a Lucky directory
+local function in_directory(path, directory)
+  local pattern = 'src/' .. directory .. '/.+'
 
   return string.match(full_path, pattern) ~= nil
 end
 
--- Determine whether or not a given path is a Lucky action file
-local function is_action_file(full_path)
-  local pattern = 'src/actions/.+'
-
-  return string.match(full_path, pattern) ~= nil
-end
 -- Determine whether or not a given path is a Lucky operation file
-local function is_operation_file(full_path)
-  local pattern = 'src/operations/.+'
-
-  return string.match(full_path, pattern) ~= nil
-end
 
 local function find_model_file(current_file)
   -- Extract the components from the given file
@@ -72,11 +61,11 @@ local function find_model_file(current_file)
 
   -- Quit if we aren't in a valid directory to look up  a model
   -- Otherwise, look up the model
-  if is_page_file(path) then
+  if in_directory(path, "pages") then
     model_name = singular(last_path_component(path))
-  elseif is_action_file(path) then
+  elseif in_directory(path, "actions") then
     model_name = singular(last_path_component(path))
-  elseif is_operation_file(path) then
+  elseif in_directory(path, "operations") then
     model_name = singular(last_path_component(path))
   else
     error 'Not in a page, action, or operation file.'
@@ -94,14 +83,14 @@ local function find_operation_file(current_file)
 
   -- Quit if we aren't in a valid directory to look up a model
   -- Otherwise, look up the model
-  if is_page_file(path) then
+  if in_directory(path, "pages") then
     model_name = singular(last_path_component(path))
-  elseif is_action_file(path) then
+  elseif in_directory(path, "actions") then
     model_name = singular(last_path_component(path))
-  elseif is_operation_file(path) then
+  elseif in_directory(path, "models") then
     model_name = singular(last_path_component(path))
   else
-    error 'Not in a page, action, or operation file.'
+    error 'Not in a page, action, or model file.'
   end
 
   -- Return the file to open
@@ -116,7 +105,7 @@ local function find_action_file(current_file)
 
   -- Quit if we aren't in a valid directory to look up an action
   -- Otherwise, find the action file
-  if is_page_file(path) then
+  if in_directory(path, "pages") then
     action_path = string.gsub(path, "pages", "actions")
     action_file = string.gsub(filename, "_page", "")
 
@@ -134,7 +123,7 @@ local function find_page_file(current_file)
 
   -- Quit if we aren't in a valid directory to look up a page
   -- Otherwise, find the page file
-  if is_action_file(path) then
+  if in_directory(path, "actions") then
     page_path = string.gsub(path, "actions", "pages")
     page_file = string.gsub(filename, ".cr", "_page.cr")
 
