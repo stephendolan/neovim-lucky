@@ -46,7 +46,7 @@ end
 
 -- Determine whether a given path sits in a Lucky directory
 local function in_directory(path, directory)
-  local pattern = 'src/' .. directory .. '/.+'
+  local pattern = 'src/' .. directory
 
   return string.match(path, pattern) ~= nil
 end
@@ -66,7 +66,10 @@ local function find_model_file(current_file)
   elseif in_directory(path, "actions") then
     model_name = singular(last_path_component(path))
   elseif in_directory(path, "operations") then
-    model_name = singular(last_path_component(path))
+    model_path = string.gsub(path, "operations", "models")
+    model_file = string.gsub(filename, "save_", "")
+
+    return model_path .. model_file
   else
     error 'Not in a page, action, or operation file.'
   end
@@ -88,7 +91,10 @@ local function find_operation_file(current_file)
   elseif in_directory(path, "actions") then
     model_name = singular(last_path_component(path))
   elseif in_directory(path, "models") then
-    model_name = singular(last_path_component(path))
+    operation_path = string.gsub(path, "models", "operations")
+    operation_file = "save_" .. filename
+
+    return operation_path .. operation_file
   else
     error 'Not in a page, action, or model file.'
   end
