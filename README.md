@@ -1,6 +1,6 @@
 # NeoVim Lucky &nbsp; ☘️
 
-Neovim-Lucky is a plugin that aims to supercharge your Lucky development in the Neovim editor (or vim editor with Lua support).
+Neovim-Lucky is a plugin that aims to supercharge your [Lucky](https://luckyframework.org) development in the Neovim editor (or vim editor with Lua support).
 
 ## Installation
 
