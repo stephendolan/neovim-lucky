@@ -131,6 +131,9 @@ local function find_page_file(current_file)
   -- Otherwise, find the page file
   if in_directory(path, "actions") then
     page_path = string.gsub(path, "actions", "pages")
+    page_path = string.gsub(path, "/create", "/new")
+    page_path = string.gsub(path, "/update", "/edit")
+    page_path = string.gsub(path, "/delete", "/show")
     page_file = string.gsub(filename, ".cr", "_page.cr")
 
     return page_path .. page_file
