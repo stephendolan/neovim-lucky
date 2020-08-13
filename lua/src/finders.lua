@@ -48,7 +48,7 @@ end
 local function in_directory(path, directory)
   local pattern = 'src/' .. directory .. '/.+'
 
-  return string.match(full_path, pattern) ~= nil
+  return string.match(path, pattern) ~= nil
 end
 
 -- Determine whether or not a given path is a Lucky operation file
